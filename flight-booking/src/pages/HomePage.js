@@ -268,4 +268,5 @@ const bookButtonStyle = {
   padding: '8px 15px',
 };
 
+
 export default HomePage;
