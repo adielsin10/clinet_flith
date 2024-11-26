@@ -22,12 +22,15 @@ const HomePage = () => {
   // פונקציה לחיפוש טיסות
   const fetchFlights = async (searchParams) => {
     try {
+      console.log('Sending search params:', searchParams);  // הדפס את פרטי החיפוש
       const response = await axios.get('http://localhost:5000/api/flights', {
         params: searchParams,
       });
       setFlights(response.data);
+      console.log('Flights response:', response.data);  // הדפס את התשובה מהשרת
     } catch (error) {
-      console.error('Error fetching flights:', error);
+      console.error('Error fetching flights:', error);  // הדפסת שגיאה אם קרה משהו
+      alert('Error fetching flights');
     }
   };
 
@@ -148,7 +151,7 @@ const HomePage = () => {
           <li key={flight.id} style={{ borderBottom: '1px solid #ddd', marginBottom: '10px', paddingBottom: '10px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
-                <strong>{flight.airline}</strong> - {flight.from} to {flight.to} (${flight.price})
+                <strong>{flight.airline}</strong> - {flight.from_location} to {flight.to_location} (${flight.price})
               </div>
               <div>
                 <button onClick={() => toggleFlightDetails(flight.id)} style={expandButtonStyle}>
@@ -162,13 +165,13 @@ const HomePage = () => {
 
             {expandedFlightId === flight.id && (
               <div style={{ marginTop: '10px' }}>
-                <p><strong>Departure:</strong> {formatDate(flight.departureDate)} at {flight.departureTime}</p>
-                <p><strong>Arrival:</strong> {formatDate(flight.arrivalDate)} at {flight.arrivalTime}</p>
-                <p><strong>Baggage Allowance:</strong> {flight.baggageAllowance}</p>
-                <p><strong>Duration:</strong> {flight.flightDuration}</p>
-                <p><strong>Seat Type:</strong> {flight.seatType}</p>
-                <p><strong>Transit Stops:</strong> {flight.transitStops}</p>
-                <p><strong>In-Flight Meals:</strong> {flight.inFlightMeals}</p>
+                <p><strong>Departure:</strong> {formatDate(flight.departure_date)} at {flight.departure_time}</p>
+                <p><strong>Arrival:</strong> {formatDate(flight.arrival_date)} at {flight.arrival_time}</p>
+                <p><strong>Baggage Allowance:</strong> {flight.baggage_allowance}</p>
+                <p><strong>Duration:</strong> {flight.flight_duration}</p>
+                <p><strong>Seat Type:</strong> {flight.seat_type}</p>
+                <p><strong>Transit Stops:</strong> {flight.transit_stops}</p>
+                <p><strong>In-Flight Meals:</strong> {flight.in_flight_meals}</p>
               </div>
             )}
 
